@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luyện nghe TOEIC - Lớp Anh thầy Kết</title>
+
+<style>
+:root{
+  --primary:#183b63;
+  --primary-light:#eaf2fb;
+  --border:#b8c4d1;
+  --text:#17212b;
+  --muted:#64748b;
+  --green:#16803c;
+  --green-bg:#eaf8ef;
+  --red:#c62828;
+  --red-bg:#fff0f0;
+  --card:#ffffff;
+  --shadow:0 5px 18px rgba(15, 35, 55,.08);
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:#f5f7fa;
+  color:var(--text);
+  font-family:Arial, Helvetica, sans-serif;
+  line-height:1.55;
+}
+
+.container{
+  width:min(1100px, calc(100% - 28px));
+  margin:0 auto;
+  padding:22px 0 45px;
+}
+
+header{
+  background:var(--primary);
+  color:white;
+  border-radius:14px;
+  padding:20px 24px;
+  margin-bottom:20px;
+  box-shadow:var(--shadow);
+}
+
+header h1{
+  margin:0;
+  font-size:clamp(22px, 4vw, 32px);
+  text-align:center;
+}
+
+header p{
+  margin:6px 0 0;
+  text-align:center;
+  opacity:.9;
+  font-size:14px;
+}
+
+.exercise{
+  background:var(--card);
+  border:1px solid #d9e0e7;
+  border-radius:14px;
+  margin-bottom:22px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+
+.exercise-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:14px 16px;
+  background:var(--primary-light);
+  border-bottom:1px solid #d5e0eb;
+}
+
+.exercise-title{
+  font-weight:800;
+  font-size:18px;
+}
+
+.exercise-number{
+  font-size:13px;
+  color:var(--muted);
+  margin-top:2px;
+}
+
+.controls{
+  display:flex;
+  align-items:stretch;
+  gap:8px;
+  flex-shrink:0;
+}
+
+.audio-btn,
+.speed-select{
+  height:42px;
+  border:1px solid #8fa2b5;
+  background:white;
+  border-radius:8px;
+  font-size:15px;
+}
+
+.audio-btn{
+  padding:0 17px;
+  font-weight:700;
+  cursor:pointer;
+  min-width:145px;
+}
+
+.audio-btn:hover{
+  background:#f1f6fb;
+}
+
+.audio-btn.playing{
+  background:#edf7ff;
+}
+
+.speed-select{
+  padding:0 10px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.exercise-body{
+  padding:16px;
+}
+
+.listen-box{
+  border:1px solid #c7ced6;
+  background:#fff;
+  padding:13px 14px 10px;
+  border-radius:8px;
+  font-size:17px;
+}
+
+.question{
+  margin:8px 0;
+  display:flex;
+  align-items:baseline;
+  gap:7px;
+  flex-wrap:wrap;
+}
+
+.question-label{
+  font-weight:700;
+  min-width:24px;
+}
+
+.question-text{
+  flex:1;
+  min-width:220px;
+}
+
+.blank-wrap{
+  display:inline-flex;
+  align-items:baseline;
+  gap:4px;
+  white-space:nowrap;
+}
+
+.answer-input{
+  width:145px;
+  max-width:45vw;
+  border:0;
+  border-bottom:2px dotted #6b7280;
+  outline:none;
+  background:#fff;
+  font:inherit;
+  color:#111827;
+  padding:0 4px 1px;
+  text-align:center;
+}
+
+.answer-input:focus{
+  border-bottom:2px solid var(--primary);
+  background:#f8fbff;
+}
+
+.answer-input.correct{
+  color:var(--green);
+  border-bottom-color:var(--green);
+  background:var(--green-bg);
+  font-weight:700;
+}
+
+.answer-input.wrong{
+  color:var(--red);
+  border-bottom-color:var(--red);
+  background:var(--red-bg);
+  text-decoration:line-through;
+  text-decoration-thickness:2px;
+}
+
+.feedback{
+  display:inline;
+  font-weight:700;
+  font-size:15px;
+}
+
+.feedback.correct{
+  color:var(--green);
+}
+
+.feedback.wrong{
+  color:var(--red);
+}
+
+.correct-answer{
+  color:var(--red);
+  font-weight:700;
+  margin-left:3px;
+}
+
+.listen-note{
+  margin:12px 0 0;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.actions{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:12px;
+  margin-top:12px;
+}
+
+.score{
+  font-weight:700;
+  color:var(--primary);
+}
+
+.show-answer{
+  border:1px solid #244d78;
+  background:white;
+  color:#17212b;
+  padding:10px 15px;
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer;
+  border-radius:7px;
+}
+
+.show-answer:hover{
+  background:#eef5fb;
+}
+
+.total-result{
+  display:none;
+  position:sticky;
+  bottom:12px;
+  z-index:20;
+  background:white;
+  border:2px solid var(--primary);
+  border-radius:12px;
+  box-shadow:0 8px 25px rgba(0,0,0,.15);
+  padding:13px 16px;
+  text-align:center;
+  font-weight:800;
+  margin-top:5px;
+}
+
+.total-result.show{
+  display:block;
+}
+
+@media (max-width:700px){
+  .container{
+    width:min(100% - 14px, 1100px);
+    padding-top:8px;
+  }
+
+  header{
+    border-radius:10px;
+    padding:15px 12px;
+    margin-bottom:12px;
+  }
+
+  .exercise{
+    border-radius:10px;
+    margin-bottom:14px;
+  }
+
+  .exercise-header{
+    align-items:stretch;
+    flex-direction:column;
+    padding:11px;
+  }
+
+  .exercise-title{
+    font-size:16px;
+  }
+
+  .controls{
+    width:100%;
+  }
+
+  .audio-btn{
+    flex:1;
+    min-width:0;
+  }
+
+  .speed-select{
+    width:105px;
+  }
+
+  .exercise-body{
+    padding:10px;
+  }
+
+  .listen-box{
+    padding:9px 9px 8px;
+    font-size:16px;
+  }
+
+  .question{
+    gap:4px;
+    margin:10px 0;
+  }
+
+  .question-text{
+    min-width:0;
+  }
+
+  .answer-input{
+    width:115px;
+    max-width:38vw;
+  }
+
+  .actions{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .show-answer{
+    width:100%;
+  }
+
+  .score{
+    text-align:right;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <header>
+    <h1>🎧 Luyện nghe TOEIC - Lớp Anh thầy Kết</h1>
+    <p>Nghe và điền từ còn thiếu • Có thể chỉnh tốc độ audio</p>
+  </header>
+
+  <main id="exerciseContainer"></main>
+
+  <div id="totalResult" class="total-result"></div>
+</div>
+
+<script>
+/* ==========================================================
+   PHẦN DỮ LIỆU BÀI NGHE
+   ----------------------------------------------------------
+   Bạn chỉ cần sửa phần EXERCISES bên dưới.
+
+   Audio:
+   E26-T01-01.mp3
+   E26-T01-02.mp3
+   ...
+   E26-T01-06.mp3
+
+   Đặt 6 file mp3 trong thư mục:
+   audio/
+
+   Ví dụ:
+   your-github-repo/
+   ├── index.html
+   └── audio/
+       ├── E26-T01-01.mp3
+       ├── E26-T01-02.mp3
+       ├── E26-T01-03.mp3
+       ├── E26-T01-04.mp3
+       ├── E26-T01-05.mp3
+       └── E26-T01-06.mp3
+   ========================================================== */
+
+const AUDIO_FOLDER = "audio/";
+
+const EXERCISES = [
+  {
+    id: "E26-T01-01",
+    title: "Bài nghe 01",
+    note: "Nghe và điền từ còn thiếu.",
+    questions: [
+      {
+        label: "A",
+        before: "Some people are",
+        after: "in line.",
+        answer: "waiting"
+      },
+      {
+        label: "B",
+        before: "Some people are",
+        after: "on chairs.",
+        answer: "sitting"
+      },
+      {
+        label: "C",
+        before: "Some people are",
+        after: "their suitcases.",
+        answer: "holding"
+      },
+      {
+        label: "D",
+        before: "Some people are",
+        after: "outside.",
+        answer: "standing"
+      }
+    ]
+  },
+
+  {
+    id: "E26-T01-02",
+    title: "Bài nghe 02",
+    note: "Bạn có thể thay toàn bộ nội dung bên dưới bằng câu/đoạn nghe thật.",
+    questions: [
+      {
+        label: "A",
+        before: "The man is",
+        after: "a newspaper.",
+        answer: "reading"
+      },
+      {
+        label: "B",
+        before: "A woman is",
+        after: "for a taxi.",
+        answer: "waiting"
+      },
+      {
+        label: "C",
+        before: "Several cars are",
+        after: "along the street.",
+        answer: "moving"
+      },
+      {
+        label: "D",
+        before: "The store is",
+        after: "for the day.",
+        answer: "closed"
+      }
+    ]
+  },
+
+  {
+    id: "E26-T01-03",
+    title: "Bài nghe 03",
+    note: "Ví dụ có đáp án chấp nhận cả Anh-Mỹ và Anh-Anh: flavor / flavour.",
+    questions: [
+      {
+        label: "A",
+        before: "The soup has a rich",
+        after: ".",
+        answer: ["flavor", "flavour"]
+      },
+      {
+        label: "B",
+        before: "The chef is",
+        after: "the vegetables.",
+        answer: "cutting"
+      },
+      {
+        label: "C",
+        before: "The customers are",
+        after: "at a table.",
+        answer: "eating"
+      },
+      {
+        label: "D",
+        before: "A waiter is",
+        after: "the dishes.",
+        answer: "serving"
+      }
+    ]
+  },
+
+  {
+    id: "E26-T01-04",
+    title: "Bài nghe 04",
+    note: "Có thể dùng cho short talk hoặc conversation.",
+    questions: [
+      {
+        label: "A",
+        before: "The meeting will begin at",
+        after: "o'clock.",
+        answer: "three"
+      },
+      {
+        label: "B",
+        before: "Please bring your",
+        after: "with you.",
+        answer: "notebook"
+      },
+      {
+        label: "C",
+        before: "The conference room is on the",
+        after: "floor.",
+        answer: "second"
+      },
+      {
+        label: "D",
+        before: "Refreshments will be",
+        after: "near the entrance.",
+        answer: "available"
+      }
+    ]
+  },
+
+  {
+    id: "E26-T01-05",
+    title: "Bài nghe 05",
+    note: "Nghe kỹ từ loại và số ít/số nhiều.",
+    questions: [
+      {
+        label: "A",
+        before: "The employees are",
+        after: "a new project.",
+        answer: "discussing"
+      },
+      {
+        label: "B",
+        before: "A manager is",
+        after: "some documents.",
+        answer: "reviewing"
+      },
+      {
+        label: "C",
+        before: "The office windows are",
+        after: ".",
+        answer: "open"
+      },
+      {
+        label: "D",
+        before: "Someone is",
+        after: "the lights.",
+        answer: "turning on"
+      }
+    ]
+  },
+
+  {
+    id: "E26-T01-06",
+    title: "Bài nghe 06",
+    note: "Bài cuối: hoàn thành tất cả chỗ trống rồi bấm Show answers.",
+    questions: [
+      {
+        label: "A",
+        before: "The train is scheduled to",
+        after: "at noon.",
+        answer: "arrive"
+      },
+      {
+        label: "B",
+        before: "Passengers should keep their",
+        after: "with them.",
+        answer: "tickets"
+      },
+      {
+        label: "C",
+        before: "The platform is",
+        after: "the main entrance.",
+        answer: "near"
+      },
+      {
+        label: "D",
+        before: "Please listen for further",
+        after: ".",
+        answer: ["instructions", "instruction"]
+      }
+    ]
+  }
+];
+
+/* ==========================================================
+   KHÔNG CẦN SỬA PHẦN TỪ ĐÂY TRỞ XUỐNG
+   ========================================================== */
+
+const container = document.getElementById("exerciseContainer");
+const totalResult = document.getElementById("totalResult");
+
+let currentAudio = null;
+
+function escapeHTML(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function normalizeAnswer(value) {
+  return String(value)
+    .trim()
+    .toLowerCase()
+    .replace(/[’‘]/g, "'")
+    .replace(/\s+/g, " ");
+}
+
+function answerList(answer) {
+  return Array.isArray(answer) ? answer : [answer];
+}
+
+function isCorrect(userAnswer, answer) {
+  const user = normalizeAnswer(userAnswer);
+  return answerList(answer).some(item => normalizeAnswer(item) === user);
+}
+
+function answerDisplay(answer) {
+  return answerList(answer).join(" / ");
+}
+
+function renderExercises() {
+  container.innerHTML = EXERCISES.map((exercise, exIndex) => `
+    <section class="exercise" data-exercise="${exIndex}">
+      <div class="exercise-header">
+        <div>
+          <div class="exercise-title">${escapeHTML(exercise.title)}</div>
+          <div class="exercise-number">${escapeHTML(exercise.id)}</div>
+        </div>
+
+        <div class="controls">
+          <button
+            type="button"
+            class="audio-btn"
+            data-audio="${escapeHTML(exercise.id)}"
+            onclick="toggleAudio(${exIndex})">
+            ▶ Phần audio
+          </button>
+
+          <select
+            class="speed-select"
+            aria-label="Tốc độ audio"
+            onchange="changeSpeed(${exIndex}, this.value)">
+            <option value="0.8">0.8x</option>
+            <option value="0.9">0.9x</option>
+            <option value="1" selected>1x</option>
+            <option value="1.1">1.1x</option>
+            <option value="1.2">1.2x</option>
+            <option value="1.25">1.25x</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="exercise-body">
+        <div class="listen-box">
+          ${exercise.questions.map((q, qIndex) => `
+            <div class="question" data-question="${qIndex}">
+              <span class="question-label">(${escapeHTML(q.label)})</span>
+
+              <span class="question-text">
+                ${escapeHTML(q.before)}
+                <span class="blank-wrap">
+                  <input
+                    class="answer-input"
+                    type="text"
+                    autocomplete="off"
+                    autocapitalize="none"
+                    spellcheck="false"
+                    aria-label="Đáp án ${escapeHTML(q.label)}"
+                    data-question-input="${qIndex}">
+                  <span class="feedback" data-feedback="${qIndex}"></span>
+                </span>
+                ${escapeHTML(q.after)}
+              </span>
+            </div>
+          `).join("")}
+
+          <div class="listen-note">
+            ${escapeHTML(exercise.note || "")}
+          </div>
+        </div>
+
+        <div class="actions">
+          <div class="score" data-score>Chưa chấm</div>
+          <button
+            type="button"
+            class="show-answer"
+            onclick="checkExercise(${exIndex})">
+            Show answers
+          </button>
+        </div>
+      </div>
+
+      <audio
+        id="audio-${exIndex}"
+        preload="metadata"
+        src="${AUDIO_FOLDER}${encodeURIComponent(exercise.id)}.mp3">
+      </audio>
+    </section>
+  `).join("");
+}
+
+function toggleAudio(index) {
+  const exercise = EXERCISES[index];
+  const audio = document.getElementById(`audio-${index}`);
+  const button = document.querySelector(`[data-audio="${exercise.id}"]`);
+
+  if (currentAudio && currentAudio !== audio) {
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+
+    const oldIndex = [...document.querySelectorAll("audio")]
+      .findIndex(a => a === currentAudio);
+
+    if (oldIndex >= 0) {
+      const oldButton = document.querySelector(`[data-audio="${EXERCISES[oldIndex].id}"]`);
+      if (oldButton) {
+        oldButton.textContent = "▶ Phần audio";
+        oldButton.classList.remove("playing");
+      }
+    }
+  }
+
+  if (audio.paused) {
+    audio.play()
+      .then(() => {
+        currentAudio = audio;
+        button.textContent = "❚❚ Đang phát";
+        button.classList.add("playing");
+      })
+      .catch(() => {
+        alert(
+          `Không thể phát file audio:\n${AUDIO_FOLDER}${exercise.id}.mp3\n\n` +
+          `Hãy kiểm tra tên file và thư mục audio trên GitHub.`
+        );
+      });
+  } else {
+    audio.pause();
+    button.textContent = "▶ Phần audio";
+    button.classList.remove("playing");
+  }
+
+  audio.onended = () => {
+    button.textContent = "▶ Phần audio";
+    button.classList.remove("playing");
+  };
+}
+
+function changeSpeed(index, value) {
+  const audio = document.getElementById(`audio-${index}`);
+  audio.playbackRate = Number(value);
+}
+
+function checkExercise(index) {
+  const exercise = EXERCISES[index];
+  const section = document.querySelector(`[data-exercise="${index}"]`);
+  const inputs = section.querySelectorAll(".answer-input");
+
+  let correct = 0;
+
+  inputs.forEach((input, qIndex) => {
+    const q = exercise.questions[qIndex];
+    const feedback = section.querySelector(`[data-feedback="${qIndex}"]`);
+
+    input.classList.remove("correct", "wrong");
+    feedback.innerHTML = "";
+    feedback.className = "feedback";
+
+    if (isCorrect(input.value, q.answer)) {
+      correct++;
+      input.classList.add("correct");
+      feedback.classList.add("correct");
+      feedback.innerHTML = "✓";
+    } else {
+      input.classList.add("wrong");
+      feedback.classList.add("wrong");
+      feedback.innerHTML =
+        `→ <span class="correct-answer">${escapeHTML(answerDisplay(q.answer))}</span>`;
+    }
+  });
+
+  const total = exercise.questions.length;
+  const score = section.querySelector("[data-score]");
+  score.textContent = `Điểm: ${correct}/${total}`;
+
+  updateTotalScore();
+}
+
+function updateTotalScore() {
+  let correct = 0;
+  let total = 0;
+  let checkedExercises = 0;
+
+  EXERCISES.forEach((exercise, index) => {
+    const section = document.querySelector(`[data-exercise="${index}"]`);
+    const scoreText = section.querySelector("[data-score]").textContent;
+
+    const match = scoreText.match(/(\d+)\/(\d+)/);
+    if (match) {
+      checkedExercises++;
+      correct += Number(match[1]);
+      total += Number(match[2]);
+    }
+  });
+
+  if (checkedExercises === 0) {
+    totalResult.classList.remove("show");
+    return;
+  }
+
+  totalResult.classList.add("show");
+  totalResult.textContent =
+    `Đã chấm ${checkedExercises}/${EXERCISES.length} bài • ` +
+    `Tổng: ${correct}/${total}`;
+}
+
+renderExercises();
+</script>
+</body>
+</html>
