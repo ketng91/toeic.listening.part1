@@ -3,38 +3,70 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Luyện nghe TOEIC - Lớp Anh thầy Kết</title>
 
 <style>
+
+/* ==========================================================
+   1. BIẾN MÀU
+   ========================================================== */
+
 :root{
   --primary:#183b63;
   --primary-light:#eaf2fb;
   --border:#b8c4d1;
   --text:#17212b;
   --muted:#64748b;
+
   --green:#16803c;
   --green-bg:#eaf8ef;
+
   --red:#c62828;
   --red-bg:#fff0f0;
+
   --card:#ffffff;
-  --shadow:0 5px 18px rgba(15, 35, 55,.08);
+
+  --shadow:0 5px 18px rgba(15,35,55,.08);
 }
 
-*{box-sizing:border-box}
+
+/* ==========================================================
+   2. RESET
+   ========================================================== */
+
+*{
+  box-sizing:border-box;
+}
+
+
+/* ==========================================================
+   3. BODY
+   ========================================================== */
 
 body{
   margin:0;
   background:#f5f7fa;
   color:var(--text);
-  font-family:Arial, Helvetica, sans-serif;
+  font-family:Arial,Helvetica,sans-serif;
   line-height:1.55;
 }
 
+
+/* ==========================================================
+   4. CONTAINER
+   ========================================================== */
+
 .container{
-  width:min(1100px, calc(100% - 28px));
+  width:min(1100px,calc(100% - 28px));
   margin:0 auto;
   padding:22px 0 45px;
 }
+
+
+/* ==========================================================
+   5. HEADER TRANG
+   ========================================================== */
 
 header{
   background:var(--primary);
@@ -47,7 +79,7 @@ header{
 
 header h1{
   margin:0;
-  font-size:clamp(22px, 4vw, 32px);
+  font-size:clamp(22px,4vw,32px);
   text-align:center;
 }
 
@@ -58,23 +90,53 @@ header p{
   font-size:14px;
 }
 
+
+/* ==========================================================
+   6. KHUNG BÀI
+   ========================================================== */
+
 .exercise{
   background:var(--card);
   border:1px solid #d9e0e7;
   border-radius:14px;
-  margin-bottom:22px;
+  margin-bottom:18px;
   box-shadow:var(--shadow);
   overflow:hidden;
 }
+
+
+/* ==========================================================
+   7. HEADER BÀI
+   ========================================================== */
 
 .exercise-header{
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:12px;
+
   padding:14px 16px;
+
   background:var(--primary-light);
   border-bottom:1px solid #d5e0eb;
+}
+
+
+/* ==========================================================
+   8. VÙNG TÊN BÀI
+   ========================================================== */
+
+.exercise-title-wrap{
+  cursor:pointer;
+  flex:1;
+  min-width:0;
+  padding:3px 0;
+
+  user-select:none;
+}
+
+.exercise-title-wrap:hover .exercise-title{
+  color:#245b8f;
 }
 
 .exercise-title{
@@ -88,9 +150,14 @@ header p{
   margin-top:2px;
 }
 
+
+/* ==========================================================
+   9. AUDIO + SPEED
+   ========================================================== */
+
 .controls{
   display:flex;
-  align-items:stretch;
+  align-items:center;
   gap:8px;
   flex-shrink:0;
 }
@@ -103,38 +170,74 @@ header p{
 
 .speed-select{
   height:42px;
+
   border:1px solid #8fa2b5;
   background:white;
+
   border-radius:8px;
+
   font-size:15px;
   padding:0 10px;
+
   font-weight:700;
+
   cursor:pointer;
 }
 
-.speed-select{
-  padding:0 10px;
-  font-weight:700;
-  cursor:pointer;
-}
+
+/* ==========================================================
+   10. NỘI DUNG BÀI
+   ========================================================== */
+
+/*
+   QUAN TRỌNG:
+   Mặc định ẩn.
+*/
 
 .exercise-body{
+  display:none;
   padding:16px;
 }
+
+
+/*
+   Khi bài có class OPEN thì hiện.
+*/
+
+.exercise.open .exercise-body{
+  display:block;
+}
+
+
+/* ==========================================================
+   11. KHUNG CÂU HỎI
+   ========================================================== */
 
 .listen-box{
   border:1px solid #c7ced6;
   background:#fff;
+
   padding:13px 14px 10px;
+
   border-radius:8px;
+
   font-size:17px;
 }
 
+
+/* ==========================================================
+   12. QUESTION
+   ========================================================== */
+
 .question{
-  margin:8px 0;
+  margin:9px 0;
+
   display:flex;
+
   align-items:baseline;
+
   gap:7px;
+
   flex-wrap:wrap;
 }
 
@@ -148,23 +251,38 @@ header p{
   min-width:220px;
 }
 
+
+/* ==========================================================
+   13. Ô ĐIỀN
+   ========================================================== */
+
 .blank-wrap{
   display:inline-flex;
   align-items:baseline;
+
   gap:4px;
+
   white-space:nowrap;
 }
 
 .answer-input{
   width:145px;
   max-width:45vw;
+
   border:0;
+
   border-bottom:2px dotted #6b7280;
+
   outline:none;
+
   background:#fff;
+
   font:inherit;
+
   color:#111827;
+
   padding:0 4px 1px;
+
   text-align:center;
 }
 
@@ -173,24 +291,48 @@ header p{
   background:#f8fbff;
 }
 
+
+/* ==========================================================
+   14. ĐÚNG
+   ========================================================== */
+
 .answer-input.correct{
   color:var(--green);
+
   border-bottom-color:var(--green);
+
   background:var(--green-bg);
+
   font-weight:700;
 }
+
+
+/* ==========================================================
+   15. SAI
+   ========================================================== */
 
 .answer-input.wrong{
   color:var(--red);
+
   border-bottom-color:var(--red);
+
   background:var(--red-bg);
+
   text-decoration:line-through;
+
   text-decoration-thickness:2px;
 }
 
+
+/* ==========================================================
+   16. FEEDBACK
+   ========================================================== */
+
 .feedback{
   display:inline;
+
   font-weight:700;
+
   font-size:15px;
 }
 
@@ -204,21 +346,39 @@ header p{
 
 .correct-answer{
   color:var(--red);
+
   font-weight:700;
+
   margin-left:3px;
 }
 
+
+/* ==========================================================
+   17. NOTE
+   ========================================================== */
+
 .listen-note{
   margin:12px 0 0;
+
   color:var(--muted);
+
   font-size:13px;
 }
 
+
+/* ==========================================================
+   18. ACTIONS
+   ========================================================== */
+
 .actions{
   display:flex;
+
   justify-content:flex-end;
+
   align-items:center;
+
   gap:12px;
+
   margin-top:12px;
 }
 
@@ -229,12 +389,19 @@ header p{
 
 .show-answer{
   border:1px solid #244d78;
+
   background:white;
+
   color:#17212b;
+
   padding:10px 15px;
+
   font-size:15px;
+
   font-weight:700;
+
   cursor:pointer;
+
   border-radius:7px;
 }
 
@@ -242,18 +409,34 @@ header p{
   background:#eef5fb;
 }
 
+
+/* ==========================================================
+   19. TỔNG ĐIỂM
+   ========================================================== */
+
 .total-result{
   display:none;
+
   position:sticky;
+
   bottom:12px;
+
   z-index:20;
+
   background:white;
+
   border:2px solid var(--primary);
+
   border-radius:12px;
+
   box-shadow:0 8px 25px rgba(0,0,0,.15);
+
   padding:13px 16px;
+
   text-align:center;
+
   font-weight:800;
+
   margin-top:5px;
 }
 
@@ -261,857 +444,1774 @@ header p{
   display:block;
 }
 
-@media (max-width:700px){
+
+/* ==========================================================
+   20. MOBILE
+   ========================================================== */
+
+@media(max-width:700px){
+
   .container{
-    width:min(100% - 14px, 1100px);
+    width:calc(100% - 14px);
+
     padding-top:8px;
   }
 
+
   header{
     border-radius:10px;
+
     padding:15px 12px;
+
     margin-bottom:12px;
   }
 
+
+  header h1{
+    font-size:22px;
+  }
+
+
+  header p{
+    font-size:13px;
+  }
+
+
   .exercise{
     border-radius:10px;
+
     margin-bottom:14px;
   }
 
+
   .exercise-header{
-    align-items:stretch;
+
     flex-direction:column;
+
+    align-items:stretch;
+
     padding:11px;
   }
+
+
+  .exercise-title-wrap{
+    width:100%;
+  }
+
 
   .exercise-title{
     font-size:16px;
   }
 
+
+  .exercise-number{
+    font-size:12px;
+  }
+
+
+  /* AUDIO */
+
   .controls{
-  width:100%;
-}
+    width:100%;
+  }
 
-.audio-player{
-  flex:1;
-  width:auto;
-  min-width:0;
-}
 
-.speed-select{
-  width:105px;
-  flex-shrink:0;
-}
+  .audio-player{
+    flex:1;
 
+    width:auto;
+
+    min-width:0;
+  }
+
+
+  .speed-select{
+    width:95px;
+
+    flex-shrink:0;
+  }
+
+
+  /* BODY */
 
   .exercise-body{
     padding:10px;
   }
 
+
   .listen-box{
-    padding:9px 9px 8px;
+    padding:9px;
+
     font-size:16px;
   }
 
+
   .question{
     gap:4px;
+
     margin:10px 0;
   }
+
 
   .question-text{
     min-width:0;
   }
 
+
   .answer-input{
     width:115px;
+
     max-width:38vw;
   }
 
+
+  /* BUTTON */
+
   .actions{
     flex-direction:column;
+
     align-items:stretch;
   }
+
+
+  .score{
+    text-align:right;
+  }
+
 
   .show-answer{
     width:100%;
   }
 
-  .score{
-    text-align:right;
-  }
 }
+
 </style>
 </head>
 
+
 <body>
+
+
 <div class="container">
 
+
+  <!-- ======================================================
+       HEADER
+       ====================================================== -->
+
   <header>
-    <h1>🎧 Luyện nghe TOEIC - Lớp Anh thầy Kết</h1>
-    <p>Nghe và điền từ còn thiếu • Có thể chỉnh tốc độ audio</p>
+
+    <h1>
+      🎧 Luyện nghe TOEIC - Lớp Anh thầy Kết
+    </h1>
+
+    <p>
+      Nghe và điền từ còn thiếu • Có thể chỉnh tốc độ audio
+    </p>
+
   </header>
+
+
+  <!-- ======================================================
+       DANH SÁCH BÀI
+       ====================================================== -->
 
   <main id="exerciseContainer"></main>
 
-  <div id="totalResult" class="total-result"></div>
+
+  <!-- ======================================================
+       TỔNG ĐIỂM
+       ====================================================== -->
+
+  <div
+    id="totalResult"
+    class="total-result"
+  ></div>
+
+
 </div>
 
+
+<!-- ========================================================
+     JAVASCRIPT
+     ======================================================== -->
+
 <script>
+
+
 /* ==========================================================
-   PHẦN DỮ LIỆU BÀI NGHE
-   ----------------------------------------------------------
-   Bạn chỉ cần sửa phần EXERCISES bên dưới.
-
-   Audio:
-   E26-T01-01.mp3
-   E26-T01-02.mp3
-   ...
-   E26-T01-06.mp3
-
-   Đặt 6 file mp3 trong thư mục:
-   audio/
-
-   Ví dụ:
-   your-github-repo/
-   ├── index.html
-   └── audio/
-       ├── E26-T01-01.mp3
-       ├── E26-T01-02.mp3
-       ├── E26-T01-03.mp3
-       ├── E26-T01-04.mp3
-       ├── E26-T01-05.mp3
-       └── E26-T01-06.mp3
+   1. AUDIO FOLDER
    ========================================================== */
 
-const AUDIO_FOLDER = "";
+const AUDIO_FOLDER = "audio/";
+
+
+/* ==========================================================
+   2. DỮ LIỆU
+   ========================================================== */
 
 const EXERCISES = [
 
+  /* ========================================================
+     TEST 1 - CÂU 1
+     ======================================================== */
+
   {
-    id: "E26-T01-01",
-    title: "TEST 1: Câu 1",
-    note: "",
-    questions: [
+    id:"E26-T01-01",
+
+    title:"TEST 1: Câu 1",
+
+    note:"",
+
+    questions:[
+
       {
-        label: "A",
-        text: "The woman is [[0]] a tray of food.",
-        answers: ["carrying"]
+        label:"A",
+        text:"The woman is [[0]] a tray of food.",
+        answers:["carrying"]
       },
+
       {
-        label: "B",
-        text: "The woman is [[0]] a jacket.",
-        answers: ["wearing"]
+        label:"B",
+        text:"The woman is [[0]] a jacket.",
+        answers:["wearing"]
       },
+
       {
-        label: "C",
-        text: "The woman is [[0]] up her hair.",
-        answers: ["tying"]
+        label:"C",
+        text:"The woman is [[0]] up her hair.",
+        answers:["tying"]
       },
+
       {
-        label: "D",
-        text: "The woman is [[0]] her hat.",
-        answers: ["removing"]
+        label:"D",
+        text:"The woman is [[0]] her hat.",
+        answers:["removing"]
       }
+
     ]
   },
 
+
+  /* ========================================================
+     TEST 1 - CÂU 2
+     ======================================================== */
+
   {
-    id: "E26-T01-02",
-    title: "TEST 1: Câu 2",
-    note: "",
-    questions: [
+    id:"E26-T01-02",
+
+    title:"TEST 1: Câu 2",
+
+    note:"",
+
+    questions:[
+
       {
-        label: "A",
-        text: "Some people are [[0]] next to a filing [[1]].",
-        answers: ["standing", "cabinet"]
+        label:"A",
+        text:"Some people are [[0]] next to a filing [[1]].",
+        answers:["standing","cabinet"]
       },
+
       {
-        label: "B",
-        text: "Some people are [[0]] through a desk.",
-        answers: ["searching"]
+        label:"B",
+        text:"Some people are [[0]] through a desk.",
+        answers:["searching"]
       },
+
       {
-        label: "C",
-        text: "Some people are [[0]] a [[1]].",
-        answers: ["watching", "presentation"]
+        label:"C",
+        text:"Some people are [[0]] a [[1]].",
+        answers:["watching","presentation"]
       },
+
       {
-        label: "D",
-        text: "Some people are [[0]] at a [[1]].",
-        answers: ["looking", "book"]
+        label:"D",
+        text:"Some people are [[0]] at a [[1]].",
+        answers:["looking","book"]
       }
+
     ]
   },
 
+
+  /* ========================================================
+     TEST 1 - CÂU 3
+     ======================================================== */
+
   {
-    id: "E26-T01-03",
-    title: "TEST 1: Câu 3",
-    note: "",
-    questions: [
+    id:"E26-T01-03",
+
+    title:"TEST 1: Câu 3",
+
+    note:"",
+
+    questions:[
+
       {
-        label: "A",
-        text: "A woman is [[0]] a phone up to her [[1]].",
-        answers: ["holding", "ear"]
+        label:"A",
+        text:"A woman is [[0]] a phone up to her [[1]].",
+        answers:["holding","ear"]
       },
+
       {
-        label: "B",
-        text: "A woman is [[0]] a beverage into a [[1]].",
-        answers: ["pouring", "glass"]
+        label:"B",
+        text:"A woman is [[0]] a beverage into a [[1]].",
+        answers:["pouring","glass"]
       },
+
       {
-        label: "C",
-        text: "Some light fixtures are [[0]] from the [[1]].",
-        answers: ["hanging", "ceiling"]
+        label:"C",
+        text:"Some light fixtures are [[0]] from the [[1]].",
+        answers:["hanging","ceiling"]
       },
+
       {
-        label: "D",
-        text: "Some tiles are being [[0]] in a [[1]].",
-        answers: ["installed", "hallway"]
+        label:"D",
+        text:"Some tiles are being [[0]] in a [[1]].",
+        answers:["installed","hallway"]
       }
+
     ]
   },
 
+
+  /* ========================================================
+     TEST 1 - CÂU 4
+     ======================================================== */
+
   {
-    id: "E26-T01-04",
-    title: "TEST 1: Câu 4",
-    note: "",
-    questions: [
+    id:"E26-T01-04",
+
+    title:"TEST 1: Câu 4",
+
+    note:"",
+
+    questions:[
+
       {
-        label: "A",
-        text: "A wooden crate is [[0]] with [[1]].",
-        answers: ["filled", "vegetables"]
+        label:"A",
+        text:"A wooden crate is [[0]] with [[1]].",
+        answers:["filled","vegetables"]
       },
+
       {
-        label: "B",
-        text: "One of the men is [[0]] vegetables into a shopping [[1]].",
-        answers: ["putting", "bag"]
+        label:"B",
+        text:"One of the men is [[0]] vegetables into a shopping [[1]].",
+        answers:["putting","bag"]
       },
+
       {
-        label: "C",
-        text: "A backpack has been [[0]] on the [[1]].",
-        answers: ["set", "ground"]
+        label:"C",
+        text:"A backpack has been [[0]] on the [[1]].",
+        answers:["set","ground"]
       },
+
       {
-        label: "D",
-        text: "One of the men is [[0]] into a [[1]].",
-        answers: ["reaching", "bucket"]
+        label:"D",
+        text:"One of the men is [[0]] into a [[1]].",
+        answers:["reaching","bucket"]
       }
+
     ]
   },
 
+
+  /* ========================================================
+     TEST 1 - CÂU 5
+     ======================================================== */
+
   {
-    id: "E26-T01-05",
-    title: "TEST 1: Câu 5",
-    note: "",
-    questions: [
+    id:"E26-T01-05",
+
+    title:"TEST 1: Câu 5",
+
+    note:"",
+
+    questions:[
+
       {
-        label: "A",
-        text: "Painting supplies have been [[0]] out on the [[1]].",
-        answers: ["laid", "floor"]
+        label:"A",
+        text:"Painting supplies have been [[0]] out on the [[1]].",
+        answers:["laid","floor"]
       },
+
       {
-        label: "B",
-        text: "He's [[0]] a brush down on a [[1]].",
-        answers: ["laying", "windowsill"]
+        label:"B",
+        text:"He's [[0]] a brush down on a [[1]].",
+        answers:["laying","windowsill"]
       },
+
       {
-        label: "C",
-        text: "He's [[0]] a can of paint by its [[1]].",
-        answers: ["lifting", "handle"]
+        label:"C",
+        text:"He's [[0]] a can of paint by its [[1]].",
+        answers:["lifting","handle"]
       },
+
       {
-        label: "D",
-        text: "Cans of paint have been [[0]] on a step [[1]].",
-        answers: ["placed", "stool"]
+        label:"D",
+        text:"Cans of paint have been [[0]] on a step [[1]].",
+        answers:["placed","stool"]
       }
+
     ]
   },
 
+
+  /* ========================================================
+     TEST 1 - CÂU 6
+     ======================================================== */
+
   {
-    id: "E26-T01-06",
-    title: "TEST 1: Câu 6",
-    note: "",
-    questions: [
+    id:"E26-T01-06",
+
+    title:"TEST 1: Câu 6",
+
+    note:"",
+
+    questions:[
+
       {
-        label: "A",
-        text: "A path is [[0]] with fallen [[1]].",
-        answers: ["covered", "branches"]
+        label:"A",
+        text:"A path is [[0]] with fallen [[1]].",
+        answers:["covered","branches"]
       },
+
       {
-        label: "B",
-        text: "A tree is [[0]] across a [[1]] area.",
-        answers: ["lying", "grassy"]
+        label:"B",
+        text:"A tree is [[0]] across a [[1]] area.",
+        answers:["lying","grassy"]
       },
+
       {
-        label: "C",
-        text: "Some water has [[0]] on a [[1]].",
-        answers: ["pooled", "path"]
+        label:"C",
+        text:"Some water has [[0]] on a [[1]].",
+        answers:["pooled","path"]
       },
+
       {
-        label: "D",
-        text: "Some cyclists are [[0]] through a [[1]].",
-        answers: ["riding", "field"]
+        label:"D",
+        text:"Some cyclists are [[0]] through a [[1]].",
+        answers:["riding","field"]
       }
+
     ]
   },
 
-{
-    id: "E26-T02-01",
-    title: "TEST 2: Câu 1",
-    note: "",
-    questions: [
-      {
-        label: "A",
-        text: "A man is [[0]] a metal [[1]].",
-        answers: ["closing", "gate"]
-      },
-      {
-        label: "B",
-        text: "A man is [[0]] down a stone [[1]].",
-        answers: ["walking", "path"]
-      },
-      {
-        label: "C",
-        text: "Some potted plants [[0]] a [[1]].",
-        answers: ["line", "walkway"]
-      },
-      {
-        label: "D",
-        text: "Some flags are [[0]] from [[1]].",
-        answers: ["hanging", "balconies"]
-      }
-    ]
-  },
+
+  /* ========================================================
+     TEST 2 - CÂU 1
+     ======================================================== */
+
   {
-    id: "E26-T02-02",
-    title: "TEST 2: Câu 2",
-    note: "",
-    questions: [
+    id:"E26-T02-01",
+
+    title:"TEST 2: Câu 1",
+
+    note:"",
+
+    questions:[
+
       {
-        label: "A",
-        text: "Some shopping bags have been [[0]] on a train [[1]].",
-        answers: ["placed", "platform"]
+        label:"A",
+        text:"A man is [[0]] a metal [[1]].",
+        answers:["closing","gate"]
       },
+
       {
-        label: "B",
-        text: "Some people are [[0]] up to buy train [[1]].",
-        answers: ["lined", "tickets"]
+        label:"B",
+        text:"A man is [[0]] down a stone [[1]].",
+        answers:["walking","path"]
       },
+
       {
-        label: "C",
-        text: "A woman is [[0]] her luggage behind [[1]].",
-        answers: ["pulling", "her"]
+        label:"C",
+        text:"Some potted plants [[0]] a [[1]].",
+        answers:["line","walkway"]
       },
+
       {
-        label: "D",
-        text: "A man is [[0]] against a [[1]].",
-        answers: ["leaning", "railing"]
+        label:"D",
+        text:"Some flags are [[0]] from [[1]].",
+        answers:["hanging","balconies"]
       }
-    ]
-  },
-  {
-    id: "E26-T02-03",
-    title: "TEST 2: Câu 3",
-    note: "",
-    questions: [
-      {
-        label: "A",
-        text: "Some wooden planks are [[0]] against a [[1]].",
-        answers: ["leaning", "wall"]
-      },
-      {
-        label: "B",
-        text: "A vehicle is [[0]] next to a [[1]].",
-        answers: ["parked", "building"]
-      },
-      {
-        label: "C",
-        text: "Some stones have been [[0]] on a [[1]].",
-        answers: ["stacked", "pallet"]
-      },
-      {
-        label: "D",
-        text: "A package has been [[0]] near a [[1]].",
-        answers: ["left", "door"]
-      }
-    ]
-  },
-{
-    id: "E26-T02-04",
-    title: "TEST 2: Câu 4",
-    note: "",
-    questions: [
-      {
-        label: "A",
-        text: "A man is [[0]] up his [[1]].",
-        answers: ["holding", "phone"]
-      },
-      {
-        label: "B",
-        text: "A man is [[0]] a note to a bulletin [[1]].",
-        answers: ["pinning", "board"]
-      },
-      {
-        label: "C",
-        text: "A man is [[0]] an item into a [[1]].",
-        answers: ["dropping", "bin"]
-      },
-      {
-        label: "D",
-        text: "A man is [[0]] some [[1]].",
-        answers: ["washing", "windows"]
-      }
-    ]
-  },
-  {
-    id: "E26-T02-05",
-    title: "TEST 2: Câu 5",
-    note: "",
-    questions: [
-      {
-        label: "A",
-        text: "She's [[0]] the back of her [[1]].",
-        answers: ["tying", "apron"]
-      },
-      {
-        label: "B",
-        text: "She's [[0]] for food on a [[1]].",
-        answers: ["reaching", "shelf"]
-      },
-      {
-        label: "C",
-        text: "She's [[0]] at a [[1]].",
-        answers: ["working", "counter"]
-      },
-      {
-        label: "D",
-        text: "She's [[0]] food into a [[1]].",
-        answers: ["putting", "refrigerator"]
-      }
-    ]
-  },
-  {
-    id: "E26-T02-06",
-    title: "TEST 2: Câu 6",
-    note: "",
-    questions: [
-      {
-        label: "A",
-        text: "He's [[0]] up a [[1]].",
-        answers: ["setting", "buffet"]
-      },
-      {
-        label: "B",
-        text: "He's [[0]] plates on dining [[1]].",
-        answers: ["putting", "tables"]
-      },
-      {
-        label: "C",
-        text: "He's [[0]] some plants in a [[1]].",
-        answers: ["watering", "garden"]
-      },
-      {
-        label: "D",
-        text: "He's [[0]] food up a [[1]].",
-        answers: ["carrying", "stairway"]
-      }
+
     ]
   },
 
-{
-    id: "E26-T03-01",
-    title: "TEST 3: Câu 1",
-    note: "",
-    questions: [
-      {
-        label: "A",
-        text: "He's [[0]] a file [[1]].",
-        answers: ["fixing", "drawer"]
-      },
-      {
-        label: "B",
-        text: "He's [[0]] up his [[1]].",
-        answers: ["rolling", "sleeves"]
-      },
-      {
-        label: "C",
-        text: "He's [[0]] a laptop [[1]].",
-        answers: ["closing", "computer"]
-      },
-      {
-        label: "D",
-        text: "He's [[0]] from a [[1]].",
-        answers: ["drinking", "mug"]
-      }
-    ]
-  },
+
+  /* ========================================================
+     TEST 2 - CÂU 2
+     ======================================================== */
+
   {
-    id: "E26-T03-02",
-    title: "TEST 3: Câu 2",
-    note: "",
-    questions: [
+    id:"E26-T02-02",
+
+    title:"TEST 2: Câu 2",
+
+    note:"",
+
+    questions:[
+
       {
-        label: "A",
-        text: "Some bushes are [[0]] with [[1]].",
-        answers: ["covered", "snow"]
+        label:"A",
+        text:"Some shopping bags have been [[0]] on a train [[1]].",
+        answers:["placed","platform"]
       },
+
       {
-        label: "B",
-        text: "Some flowers are [[0]] [[1]].",
-        answers: ["being", "planted"]
+        label:"B",
+        text:"Some people are [[0]] up to buy train [[1]].",
+        answers:["lined","tickets"]
       },
+
       {
-        label: "C",
-        text: "A person is [[0]] in the [[1]].",
-        answers: ["walking", "road"]
+        label:"C",
+        text:"A woman is [[0]] her luggage behind [[1]].",
+        answers:["pulling","her"]
       },
+
       {
-        label: "D",
-        text: "A person is [[0]] some [[1]].",
-        answers: ["cleaning", "windows"]
+        label:"D",
+        text:"A man is [[0]] against a [[1]].",
+        answers:["leaning","railing"]
       }
-    ]
-  },
-  {
-    id: "E26-T03-03",
-    title: "TEST 3: Câu 3",
-    note: "",
-    questions: [
-      {
-        label: "A",
-        text: "A man is [[0]] a tire on his [[1]].",
-        answers: ["changing", "car"]
-      },
-      {
-        label: "B",
-        text: "A man is [[0]] a car [[1]].",
-        answers: ["opening", "door"]
-      },
-      {
-        label: "C",
-        text: "A man is [[0]] fuel into his [[1]].",
-        answers: ["putting", "car"]
-      },
-      {
-        label: "D",
-        text: "A man is [[0]] out a map on top of his [[1]].",
-        answers: ["spreading", "car"]
-      }
-    ]
-  },
-{
-    id: "E26-T03-04",
-    title: "TEST 3: Câu 4",
-    note: "",
-    questions: [
-      {
-        label: "A",
-        text: "They're [[0]] a [[1]].",
-        answers: ["leaving", "restaurant"]
-      },
-      {
-        label: "B",
-        text: "They're [[0]] next to each [[1]].",
-        answers: ["seated", "other"]
-      },
-      {
-        label: "C",
-        text: "One of the women is [[0]] in her [[1]].",
-        answers: ["looking", "handbag"]
-      },
-      {
-        label: "D",
-        text: "One of the women is [[0]] a [[1]].",
-        answers: ["folding", "scarf"]
-      }
-    ]
-  },
-  {
-    id: "E26-T03-05",
-    title: "TEST 3: Câu 5",
-    note: "",
-    questions: [
-      {
-        label: "A",
-        text: "A selection of luggage is on [[0]] [[1]].",
-        answers: ["display", ""]
-      },
-      {
-        label: "B",
-        text: "A lamp and some papers are on a [[0]] [[1]].",
-        answers: ["desk", ""]
-      },
-      {
-        label: "C",
-        text: "Some boxes are [[0]] under some [[1]].",
-        answers: ["arranged", "lamps"]
-      },
-      {
-        label: "D",
-        text: "Some wire has been [[0]] up on the [[1]].",
-        answers: ["rolled", "floor"]
-      }
-    ]
-  },
-  {
-    id: "E26-T03-06",
-    title: "TEST 3: Câu 6",
-    note: "",
-    questions: [
-      {
-        label: "A",
-        text: "A cyclist is [[0]] past a [[1]].",
-        answers: ["riding", "pedestrian"]
-      },
-      {
-        label: "B",
-        text: "A tent is [[0]] up next to a [[1]].",
-        answers: ["set", "lake"]
-      },
-      {
-        label: "C",
-        text: "Some people are [[0]] on a stone [[1]].",
-        answers: ["resting", "wall"]
-      },
-      {
-        label: "D",
-        text: "Some people are [[0]] in a [[1]].",
-        answers: ["swimming", "lake"]
-      }
+
     ]
   },
 
+
+  /* ========================================================
+     TEST 2 - CÂU 3
+     ======================================================== */
+
+  {
+    id:"E26-T02-03",
+
+    title:"TEST 2: Câu 3",
+
+    note:"",
+
+    questions:[
+
+      {
+        label:"A",
+        text:"Some wooden planks are [[0]] against a [[1]].",
+        answers:["leaning","wall"]
+      },
+
+      {
+        label:"B",
+        text:"A vehicle is [[0]] next to a [[1]].",
+        answers:["parked","building"]
+      },
+
+      {
+        label:"C",
+        text:"Some stones have been [[0]] on a [[1]].",
+        answers:["stacked","pallet"]
+      },
+
+      {
+        label:"D",
+        text:"A package has been [[0]] near a [[1]].",
+        answers:["left","door"]
+      }
+
+    ]
+  },
+
+
+  /* ========================================================
+     TEST 2 - CÂU 4
+     ======================================================== */
+
+  {
+    id:"E26-T02-04",
+
+    title:"TEST 2: Câu 4",
+
+    note:"",
+
+    questions:[
+
+      {
+        label:"A",
+        text:"A man is [[0]] up his [[1]].",
+        answers:["holding","phone"]
+      },
+
+      {
+        label:"B",
+        text:"A man is [[0]] a note to a bulletin [[1]].",
+        answers:["pinning","board"]
+      },
+
+      {
+        label:"C",
+        text:"A man is [[0]] an item into a [[1]].",
+        answers:["dropping","bin"]
+      },
+
+      {
+        label:"D",
+        text:"A man is [[0]] some [[1]].",
+        answers:["washing","windows"]
+      }
+
+    ]
+  },
+
+
+  /* ========================================================
+     TEST 2 - CÂU 5
+     ======================================================== */
+
+  {
+    id:"E26-T02-05",
+
+    title:"TEST 2: Câu 5",
+
+    note:"",
+
+    questions:[
+
+      {
+        label:"A",
+        text:"She's [[0]] the back of her [[1]].",
+        answers:["tying","apron"]
+      },
+
+      {
+        label:"B",
+        text:"She's [[0]] for food on a [[1]].",
+        answers:["reaching","shelf"]
+      },
+
+      {
+        label:"C",
+        text:"She's [[0]] at a [[1]].",
+        answers:["working","counter"]
+      },
+
+      {
+        label:"D",
+        text:"She's [[0]] food into a [[1]].",
+        answers:["putting","refrigerator"]
+      }
+
+    ]
+  },
+
+
+  /* ========================================================
+     TEST 2 - CÂU 6
+     ======================================================== */
+
+  {
+    id:"E26-T02-06",
+
+    title:"TEST 2: Câu 6",
+
+    note:"",
+
+    questions:[
+
+      {
+        label:"A",
+        text:"He's [[0]] up a [[1]].",
+        answers:["setting","buffet"]
+      },
+
+      {
+        label:"B",
+        text:"He's [[0]] plates on dining [[1]].",
+        answers:["putting","tables"]
+      },
+
+      {
+        label:"C",
+        text:"He's [[0]] some plants in a [[1]].",
+        answers:["watering","garden"]
+      },
+
+      {
+        label:"D",
+        text:"He's [[0]] food up a [[1]].",
+        answers:["carrying","stairway"]
+      }
+
+    ]
+  },
+
+
+  /* ========================================================
+     TEST 3 - CÂU 1
+     ======================================================== */
+
+  {
+    id:"E26-T03-01",
+
+    title:"TEST 3: Câu 1",
+
+    note:"",
+
+    questions:[
+
+      {
+        label:"A",
+        text:"He's [[0]] a file [[1]].",
+        answers:["fixing","drawer"]
+      },
+
+      {
+        label:"B",
+        text:"He's [[0]] up his [[1]].",
+        answers:["rolling","sleeves"]
+      },
+
+      {
+        label:"C",
+        text:"He's [[0]] a laptop [[1]].",
+        answers:["closing","computer"]
+      },
+
+      {
+        label:"D",
+        text:"He's [[0]] from a [[1]].",
+        answers:["drinking","mug"]
+      }
+
+    ]
+  },
+
+
+  /* ========================================================
+     TEST 3 - CÂU 2
+     ======================================================== */
+
+  {
+    id:"E26-T03-02",
+
+    title:"TEST 3: Câu 2",
+
+    note:"",
+
+    questions:[
+
+      {
+        label:"A",
+        text:"Some bushes are [[0]] with [[1]].",
+        answers:["covered","snow"]
+      },
+
+      {
+        label:"B",
+        text:"Some flowers are [[0]] [[1]].",
+        answers:["being","planted"]
+      },
+
+      {
+        label:"C",
+        text:"A person is [[0]] in the [[1]].",
+        answers:["walking","road"]
+      },
+
+      {
+        label:"D",
+        text:"A person is [[0]] some [[1]].",
+        answers:["cleaning","windows"]
+      }
+
+    ]
+  },
+
+
+  /* ========================================================
+     TEST 3 - CÂU 3
+     ======================================================== */
+
+  {
+    id:"E26-T03-03",
+
+    title:"TEST 3: Câu 3",
+
+    note:"",
+
+    questions:[
+
+      {
+        label:"A",
+        text:"A man is [[0]] a tire on his [[1]].",
+        answers:["changing","car"]
+      },
+
+      {
+        label:"B",
+        text:"A man is [[0]] a car [[1]].",
+        answers:["opening","door"]
+      },
+
+      {
+        label:"C",
+        text:"A man is [[0]] fuel into his [[1]].",
+        answers:["putting","car"]
+      },
+
+      {
+        label:"D",
+        text:"A man is [[0]] out a map on top of his [[1]].",
+        answers:["spreading","car"]
+      }
+
+    ]
+  },
+
+
+  /* ========================================================
+     TEST 3 - CÂU 4
+     ======================================================== */
+
+  {
+    id:"E26-T03-04",
+
+    title:"TEST 3: Câu 4",
+
+    note:"",
+
+    questions:[
+
+      {
+        label:"A",
+        text:"They're [[0]] a [[1]].",
+        answers:["leaving","restaurant"]
+      },
+
+      {
+        label:"B",
+        text:"They're [[0]] next to each [[1]].",
+        answers:["seated","other"]
+      },
+
+      {
+        label:"C",
+        text:"One of the women is [[0]] in her [[1]].",
+        answers:["looking","handbag"]
+      },
+
+      {
+        label:"D",
+        text:"One of the women is [[0]] a [[1]].",
+        answers:["folding","scarf"]
+      }
+
+    ]
+  },
+
+
+  /* ========================================================
+     TEST 3 - CÂU 5
+     ======================================================== */
+
+  {
+    id:"E26-T03-05",
+
+    title:"TEST 3: Câu 5",
+
+    note:"",
+
+    questions:[
+
+      {
+        label:"A",
+        text:"A selection of luggage is on [[0]].",
+        answers:["display"]
+      },
+
+      {
+        label:"B",
+        text:"A lamp and some papers are on a [[0]].",
+        answers:["desk"]
+      },
+
+      {
+        label:"C",
+        text:"Some boxes are [[0]] under some [[1]].",
+        answers:["arranged","lamps"]
+      },
+
+      {
+        label:"D",
+        text:"Some wire has been [[0]] up on the [[1]].",
+        answers:["rolled","floor"]
+      }
+
+    ]
+  },
+
+
+  /* ========================================================
+     TEST 3 - CÂU 6
+     ======================================================== */
+
+  {
+    id:"E26-T03-06",
+
+    title:"TEST 3: Câu 6",
+
+    note:"",
+
+    questions:[
+
+      {
+        label:"A",
+        text:"A cyclist is [[0]] past a [[1]].",
+        answers:["riding","pedestrian"]
+      },
+
+      {
+        label:"B",
+        text:"A tent is [[0]] up next to a [[1]].",
+        answers:["set","lake"]
+      },
+
+      {
+        label:"C",
+        text:"Some people are [[0]] on a stone [[1]].",
+        answers:["resting","wall"]
+      },
+
+      {
+        label:"D",
+        text:"Some people are [[0]] in a [[1]].",
+        answers:["swimming","lake"]
+      }
+
+    ]
+  }
 
 ];
 
+
 /* ==========================================================
-   KHÔNG CẦN SỬA PHẦN TỪ ĐÂY TRỞ XUỐNG
+   3. LẤY ELEMENT
    ========================================================== */
 
-const container = document.getElementById("exerciseContainer");
-const totalResult = document.getElementById("totalResult");
+const container =
+  document.getElementById("exerciseContainer");
 
-let currentAudio = null;
+const totalResult =
+  document.getElementById("totalResult");
 
-function escapeHTML(str) {
-  return String(str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+
+/* ==========================================================
+   4. ESCAPE HTML
+   ========================================================== */
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+
+    .replace(/&/g,"&amp;")
+
+    .replace(/</g,"&lt;")
+
+    .replace(/>/g,"&gt;")
+
+    .replace(/"/g,"&quot;")
+
+    .replace(/'/g,"&#039;");
 }
 
-function normalizeAnswer(value) {
-  return String(value)
-    .trim()
-    .toLowerCase()
-    .replace(/[’‘]/g, "'")
-    .replace(/\s+/g, " ");
-}
 
-function answerList(answer) {
-  return Array.isArray(answer) ? answer : [answer];
-}
+/* ==========================================================
+   5. TẠO Ô TRỐNG
+   ========================================================== */
 
-function isCorrect(userAnswer, answer) {
-  const user = normalizeAnswer(userAnswer);
-  return answerList(answer).some(item => normalizeAnswer(item) === user);
-}
+function renderQuestionText(q,qIndex){
 
-function answerDisplay(answer) {
-  return answerList(answer).join(" / ");
-}
+  return q.text.replace(
 
-function renderQuestionText(q, qIndex) {
+    /\[\[(\d+)\]\]/g,
 
-  let text = q.text;
+    function(match,blankIndex){
 
-  return text.replace(/\[\[(\d+)\]\]/g, (match, blankIndex) => {
+      const index =
+        Number(blankIndex);
 
-    const index = Number(blankIndex);
+      return `
 
-    return `
-      <span class="blank-wrap">
-        <input
-          class="answer-input"
-          type="text"
-          autocomplete="off"
-          autocapitalize="none"
-          spellcheck="false"
-          aria-label="Đáp án ${escapeHTML(q.label)} - ô ${index + 1}"
-          data-question-input="${qIndex}"
-          data-blank-index="${index}">
+        <span class="blank-wrap">
 
-        <span
-          class="feedback"
-          data-feedback="${qIndex}-${index}">
+          <input
+            type="text"
+            class="answer-input"
+
+            autocomplete="off"
+
+            autocapitalize="none"
+
+            spellcheck="false"
+
+            data-question-input="${qIndex}"
+
+            data-blank-index="${index}"
+
+            aria-label="Đáp án ${q.label} ô ${index + 1}"
+          >
+
+          <span
+            class="feedback"
+            data-feedback="${qIndex}-${index}"
+          ></span>
+
         </span>
-      </span>
-    `;
-  });
-}
 
-function renderExercises() {
-  container.innerHTML = EXERCISES.map((exercise, exIndex) => `
-    <section class="exercise" data-exercise="${exIndex}">
-      <div class="exercise-header">
-        <div>
-          <div class="exercise-title">${escapeHTML(exercise.title)}</div>
-          <div class="exercise-number">${escapeHTML(exercise.id)}</div>
-        </div>
+      `;
+    }
 
-        <div class="controls">
-
-  <audio
-    id="audio-${exIndex}"
-    class="audio-player"
-    preload="metadata"
-    controls
-    src="${AUDIO_FOLDER}${encodeURIComponent(exercise.id)}.mp3">
-  </audio>
-
-  <select
-    class="speed-select"
-    aria-label="Tốc độ audio"
-    onchange="changeSpeed(${exIndex}, this.value)">
-    <option value="0.8">0.8x</option>
-    <option value="0.9">0.9x</option>
-    <option value="1" selected>1x</option>
-    <option value="1.1">1.1x</option>
-    <option value="1.2">1.2x</option>
-    <option value="1.25">1.25x</option>
-    </select>
-    </div>
-    </div>
-
-      <div class="exercise-body">
-        <div class="listen-box">
-          ${exercise.questions.map((q, qIndex) => `
-  <div class="question" data-question="${qIndex}">
-    <span class="question-label">(${escapeHTML(q.label)})</span>
-
-    <span class="question-text">
-      ${renderQuestionText(q, qIndex)}
-    </span>
-  </div>
-`).join("")}
-
-
-          <div class="listen-note">
-            ${escapeHTML(exercise.note || "")}
-          </div>
-        </div>
-
-        <div class="actions">
-          <div class="score" data-score>Chưa chấm</div>
-          <button
-            type="button"
-            class="show-answer"
-            onclick="checkExercise(${exIndex})">
-            Show answers
-          </button>
-        </div>
-      </div>
-
-    </section>
-  `).join("");
+  );
 }
 
 
-function changeSpeed(index, value) {
-  const audio = document.getElementById(`audio-${index}`);
-  audio.playbackRate = Number(value);
-}
+/* ==========================================================
+   6. RENDER BÀI
+   ========================================================== */
 
-function checkExercise(index) {
+function renderExercises(){
 
-  const exercise = EXERCISES[index];
-  const section = document.querySelector(`[data-exercise="${index}"]`);
+  if(!container){
 
-  let correct = 0;
-  let total = 0;
-
-  exercise.questions.forEach((q, qIndex) => {
-
-    const inputs = section.querySelectorAll(
-      `[data-question-input="${qIndex}"]`
+    console.error(
+      "Không tìm thấy #exerciseContainer"
     );
 
-    inputs.forEach((input, blankIndex) => {
+    return;
+  }
 
-      const feedback = section.querySelector(
-        `[data-feedback="${qIndex}-${blankIndex}"]`
+
+  container.innerHTML = EXERCISES.map(
+
+    function(exercise,exIndex){
+
+      return `
+
+        <section
+          class="exercise"
+          data-exercise="${exIndex}"
+        >
+
+
+          <!-- ==========================================
+               HEADER BÀI
+               ========================================== -->
+
+          <div class="exercise-header">
+
+
+            <!-- ========================================
+                 TÊN BÀI
+                 ======================================== -->
+
+            <div class="exercise-title-wrap">
+
+              <div class="exercise-title">
+
+                ▸ ${escapeHTML(exercise.title)}
+
+              </div>
+
+              <div class="exercise-number">
+
+                ${escapeHTML(exercise.id)}
+
+              </div>
+
+            </div>
+
+
+            <!-- ========================================
+                 AUDIO
+                 ======================================== -->
+
+            <div class="controls">
+
+              <audio
+                id="audio-${exIndex}"
+
+                class="audio-player"
+
+                controls
+
+                preload="metadata"
+
+                src="${AUDIO_FOLDER}${encodeURIComponent(exercise.id)}.mp3"
+              ></audio>
+
+
+              <!-- SPEED -->
+
+              <select
+                class="speed-select"
+                aria-label="Tốc độ audio"
+              >
+
+                <option value="0.8">
+                  0.8x
+                </option>
+
+                <option value="0.9">
+                  0.9x
+                </option>
+
+                <option value="1" selected>
+                  1x
+                </option>
+
+                <option value="1.1">
+                  1.1x
+                </option>
+
+                <option value="1.2">
+                  1.2x
+                </option>
+
+                <option value="1.25">
+                  1.25x
+                </option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+
+          <!-- ==========================================
+               BODY
+               ========================================== -->
+
+          <div class="exercise-body">
+
+
+            <div class="listen-box">
+
+              ${
+                exercise.questions.map(
+
+                  function(q,qIndex){
+
+                    return `
+
+                      <div
+                        class="question"
+                        data-question="${qIndex}"
+                      >
+
+                        <span class="question-label">
+
+                          (${escapeHTML(q.label)})
+
+                        </span>
+
+
+                        <span class="question-text">
+
+                          ${renderQuestionText(q,qIndex)}
+
+                        </span>
+
+                      </div>
+
+                    `;
+                  }
+
+                ).join("")
+              }
+
+
+              ${
+                exercise.note
+
+                ?
+
+                `
+
+                  <div class="listen-note">
+
+                    ${escapeHTML(exercise.note)}
+
+                  </div>
+
+                `
+
+                :
+
+                ""
+              }
+
+            </div>
+
+
+            <!-- ========================================
+                 ACTIONS
+                 ======================================== -->
+
+            <div class="actions">
+
+              <div
+                class="score"
+                data-score
+              >
+
+                Chưa chấm
+
+              </div>
+
+
+              <button
+                type="button"
+                class="show-answer"
+              >
+
+                Show answers
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </section>
+
+      `;
+
+    }
+
+  ).join("");
+}
+
+
+/* ==========================================================
+   7. MỞ / ĐÓNG BÀI
+   ========================================================== */
+
+function toggleExercise(section){
+
+  if(!section){
+    return;
+  }
+
+
+  const isOpen =
+    section.classList.toggle("open");
+
+
+  const title =
+    section.querySelector(".exercise-title");
+
+
+  if(!title){
+    return;
+  }
+
+
+  const index =
+    Number(section.dataset.exercise);
+
+
+  const exercise =
+    EXERCISES[index];
+
+
+  if(!exercise){
+    return;
+  }
+
+
+  title.textContent =
+    `${isOpen ? "▾" : "▸"} ${exercise.title}`;
+}
+
+
+/* ==========================================================
+   8. ĐỔI TỐC ĐỘ
+   ========================================================== */
+
+function changeSpeed(index,value){
+
+  const audio =
+    document.getElementById(
+      `audio-${index}`
+    );
+
+
+  if(!audio){
+    return;
+  }
+
+
+  audio.playbackRate =
+    Number(value);
+}
+
+
+/* ==========================================================
+   9. CHUẨN HÓA ĐÁP ÁN
+   ========================================================== */
+
+function normalizeAnswer(value){
+
+  return String(value ?? "")
+
+    .trim()
+
+    .toLowerCase()
+
+    .replace(/\s+/g," ");
+}
+
+
+/* ==========================================================
+   10. KIỂM TRA
+   ========================================================== */
+
+function isCorrect(
+  userAnswer,
+  correctAnswer
+){
+
+  return (
+
+    normalizeAnswer(userAnswer)
+
+    ===
+
+    normalizeAnswer(correctAnswer)
+
+  );
+}
+
+
+/* ==========================================================
+   11. CHẤM BÀI
+   ========================================================== */
+
+function checkExercise(index){
+
+  const exercise =
+    EXERCISES[index];
+
+
+  const section =
+    document.querySelector(
+      `.exercise[data-exercise="${index}"]`
+    );
+
+
+  if(!exercise || !section){
+    return;
+  }
+
+
+  let correct = 0;
+
+  let total = 0;
+
+
+  exercise.questions.forEach(
+
+    function(q,qIndex){
+
+      const inputs =
+        section.querySelectorAll(
+          `[data-question-input="${qIndex}"]`
+        );
+
+
+      inputs.forEach(
+
+        function(input){
+
+          const blankIndex =
+            Number(
+              input.dataset.blankIndex
+            );
+
+
+          const correctAnswer =
+            q.answers[blankIndex] ?? "";
+
+
+          const feedback =
+            section.querySelector(
+              `[data-feedback="${qIndex}-${blankIndex}"]`
+            );
+
+
+          /* RESET */
+
+          input.classList.remove(
+            "correct",
+            "wrong"
+          );
+
+
+          if(feedback){
+
+            feedback.className =
+              "feedback";
+
+            feedback.innerHTML =
+              "";
+          }
+
+
+          total++;
+
+
+          /* KIỂM TRA */
+
+          if(
+            isCorrect(
+              input.value,
+              correctAnswer
+            )
+          ){
+
+            correct++;
+
+
+            input.classList.add(
+              "correct"
+            );
+
+
+            if(feedback){
+
+              feedback.classList.add(
+                "correct"
+              );
+
+              feedback.innerHTML =
+                "✓";
+            }
+
+          }else{
+
+            input.classList.add(
+              "wrong"
+            );
+
+
+            if(feedback){
+
+              feedback.classList.add(
+                "wrong"
+              );
+
+              feedback.innerHTML =
+
+                `→ <span class="correct-answer">${
+                  escapeHTML(correctAnswer)
+                }</span>`;
+            }
+
+          }
+
+        }
+
       );
 
-      const correctAnswer = q.answers[blankIndex] || "";
+    }
 
-      input.classList.remove("correct", "wrong");
+  );
 
-      feedback.innerHTML = "";
-      feedback.className = "feedback";
 
-      total++;
+  const score =
+    section.querySelector(
+      "[data-score]"
+    );
 
-      if (isCorrect(input.value, correctAnswer)) {
 
-        correct++;
+  if(score){
 
-        input.classList.add("correct");
+    score.textContent =
+      `Điểm: ${correct}/${total}`;
+  }
 
-        feedback.classList.add("correct");
-        feedback.innerHTML = "✓";
-
-      } else {
-
-        input.classList.add("wrong");
-
-        feedback.classList.add("wrong");
-
-        feedback.innerHTML =
-          `→ <span class="correct-answer">${
-            escapeHTML(correctAnswer)
-          }</span>`;
-      }
-    });
-  });
-
-  const score = section.querySelector("[data-score]");
-
-  score.textContent = `Điểm: ${correct}/${total}`;
 
   updateTotalScore();
 }
 
-function updateTotalScore() {
-  let correct = 0;
-  let total = 0;
-  let checkedExercises = 0;
 
-  EXERCISES.forEach((exercise, index) => {
-    const section = document.querySelector(`[data-exercise="${index}"]`);
-    const scoreText = section.querySelector("[data-score]").textContent;
+/* ==========================================================
+   12. TỔNG ĐIỂM
+   ========================================================== */
 
-    const match = scoreText.match(/(\d+)\/(\d+)/);
-    if (match) {
-      checkedExercises++;
-      correct += Number(match[1]);
-      total += Number(match[2]);
-    }
-  });
+function updateTotalScore(){
 
-  if (checkedExercises === 0) {
-    totalResult.classList.remove("show");
+  if(!totalResult){
     return;
   }
 
-  totalResult.classList.add("show");
+
+  let correct = 0;
+
+  let total = 0;
+
+  let checkedExercises = 0;
+
+
+  EXERCISES.forEach(
+
+    function(exercise,index){
+
+      const section =
+        document.querySelector(
+          `.exercise[data-exercise="${index}"]`
+        );
+
+
+      if(!section){
+        return;
+      }
+
+
+      const score =
+        section.querySelector(
+          "[data-score]"
+        );
+
+
+      if(!score){
+        return;
+      }
+
+
+      const match =
+        score.textContent.match(
+          /(\d+)\/(\d+)/
+        );
+
+
+      if(match){
+
+        checkedExercises++;
+
+
+        correct +=
+          Number(match[1]);
+
+
+        total +=
+          Number(match[2]);
+      }
+
+    }
+
+  );
+
+
+  if(checkedExercises === 0){
+
+    totalResult.classList.remove(
+      "show"
+    );
+
+    return;
+  }
+
+
+  totalResult.classList.add(
+    "show"
+  );
+
+
   totalResult.textContent =
+
     `Đã chấm ${checkedExercises}/${EXERCISES.length} bài • ` +
+
     `Tổng: ${correct}/${total}`;
 }
 
+
+/* ==========================================================
+   13. CLICK TÊN BÀI
+   ========================================================== */
+
+/*
+   Dùng document.addEventListener nên dù bài được
+   tạo bằng JavaScript sau đó vẫn click được.
+*/
+
+document.addEventListener(
+  "click",
+
+  function(event){
+
+    const titleWrap =
+      event.target.closest(
+        ".exercise-title-wrap"
+      );
+
+
+    if(titleWrap){
+
+      const section =
+        titleWrap.closest(
+          ".exercise"
+        );
+
+
+      toggleExercise(section);
+
+      return;
+    }
+
+
+    /* ==============================================
+       SHOW ANSWERS
+       ============================================== */
+
+    const showButton =
+      event.target.closest(
+        ".show-answer"
+      );
+
+
+    if(showButton){
+
+      const section =
+        showButton.closest(
+          ".exercise"
+        );
+
+
+      if(!section){
+        return;
+      }
+
+
+      const index =
+        Number(
+          section.dataset.exercise
+        );
+
+
+      checkExercise(index);
+
+      return;
+    }
+
+  }
+);
+
+
+/* ==========================================================
+   14. SPEED
+   ========================================================== */
+
+document.addEventListener(
+  "change",
+
+  function(event){
+
+    if(
+      !event.target.matches(
+        ".speed-select"
+      )
+    ){
+
+      return;
+    }
+
+
+    const section =
+      event.target.closest(
+        ".exercise"
+      );
+
+
+    if(!section){
+      return;
+    }
+
+
+    const index =
+      Number(
+        section.dataset.exercise
+      );
+
+
+    changeSpeed(
+      index,
+      event.target.value
+    );
+
+  }
+);
+
+
+/* ==========================================================
+   15. ENTER ĐỂ CHẤM
+   ========================================================== */
+
+document.addEventListener(
+  "keydown",
+
+  function(event){
+
+    if(event.key !== "Enter"){
+      return;
+    }
+
+
+    const input =
+      event.target.closest(
+        ".answer-input"
+      );
+
+
+    if(!input){
+      return;
+    }
+
+
+    const section =
+      input.closest(
+        ".exercise"
+      );
+
+
+    if(!section){
+      return;
+    }
+
+
+    const index =
+      Number(
+        section.dataset.exercise
+      );
+
+
+    checkExercise(index);
+
+  }
+);
+
+
+/* ==========================================================
+   16. KHỞI ĐỘNG TRANG
+   ========================================================== */
+
+/*
+   Chỉ gọi MỘT LẦN.
+*/
+
 renderExercises();
+
+
 </script>
+
 </body>
 </html>
