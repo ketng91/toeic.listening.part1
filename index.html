@@ -1669,13 +1669,11 @@ function renderExercises(){
 
 
               <button
-                type="button"
-                class="show-answer"
-              >
-
-                Show answers
-
-              </button>
+  type="button"
+  class="show-answer"
+>
+  Show answers
+</button>
 
             </div>
 
@@ -1801,20 +1799,93 @@ function checkExercise(index){
   const exercise =
     EXERCISES[index];
 
-
   const section =
     document.querySelector(
       `.exercise[data-exercise="${index}"]`
     );
 
-
   if(!exercise || !section){
     return;
   }
 
+  const button =
+    section.querySelector(".show-answer");
+
+  /*
+     KIỂM TRA XEM BÀI ĐÃ HIỆN ĐÁP ÁN CHƯA
+  */
+
+  const isShowingAnswers =
+    section.classList.contains("answers-shown");
+
+
+  /* ======================================================
+     NẾU ĐANG HIỆN → ẨN ĐÁP ÁN
+     ====================================================== */
+
+  if(isShowingAnswers){
+
+    section.classList.remove(
+      "answers-shown"
+    );
+
+    section
+      .querySelectorAll(".answer-input")
+      .forEach(function(input){
+
+        input.classList.remove(
+          "correct",
+          "wrong"
+        );
+
+      });
+
+
+    section
+      .querySelectorAll(".feedback")
+      .forEach(function(feedback){
+
+        feedback.className =
+          "feedback";
+
+        feedback.innerHTML =
+          "";
+
+      });
+
+
+    const score =
+      section.querySelector(
+        "[data-score]"
+      );
+
+    if(score){
+
+      score.textContent =
+        "Chưa chấm";
+
+    }
+
+
+    if(button){
+
+      button.textContent =
+        "Show answers";
+
+    }
+
+
+    updateTotalScore();
+
+    return;
+  }
+
+
+  /* ======================================================
+     NẾU ĐANG ẨN → HIỆN ĐÁP ÁN
+     ====================================================== */
 
   let correct = 0;
-
   let total = 0;
 
 
@@ -1848,28 +1919,12 @@ function checkExercise(index){
             );
 
 
-          /* RESET */
-
-          input.classList.remove(
-            "correct",
-            "wrong"
-          );
-
-
-          if(feedback){
-
-            feedback.className =
-              "feedback";
-
-            feedback.innerHTML =
-              "";
-          }
-
-
           total++;
 
 
-          /* KIỂM TRA */
+          /*
+             KIỂM TRA CÂU TRẢ LỜI
+          */
 
           if(
             isCorrect(
@@ -1881,6 +1936,10 @@ function checkExercise(index){
             correct++;
 
 
+            input.classList.remove(
+              "wrong"
+            );
+
             input.classList.add(
               "correct"
             );
@@ -1888,15 +1947,19 @@ function checkExercise(index){
 
             if(feedback){
 
-              feedback.classList.add(
-                "correct"
-              );
+              feedback.className =
+                "feedback correct";
 
               feedback.innerHTML =
                 "✓";
+
             }
 
           }else{
+
+            input.classList.remove(
+              "correct"
+            );
 
             input.classList.add(
               "wrong"
@@ -1905,15 +1968,15 @@ function checkExercise(index){
 
             if(feedback){
 
-              feedback.classList.add(
-                "wrong"
-              );
+              feedback.className =
+                "feedback wrong";
 
               feedback.innerHTML =
 
                 `→ <span class="correct-answer">${
                   escapeHTML(correctAnswer)
                 }</span>`;
+
             }
 
           }
@@ -1927,6 +1990,31 @@ function checkExercise(index){
   );
 
 
+  /*
+     ĐÁNH DẤU ĐANG HIỆN ĐÁP ÁN
+  */
+
+  section.classList.add(
+    "answers-shown"
+  );
+
+
+  /*
+     ĐỔI TÊN NÚT
+  */
+
+  if(button){
+
+    button.textContent =
+      "Hide answers";
+
+  }
+
+
+  /*
+     HIỆN ĐIỂM
+  */
+
   const score =
     section.querySelector(
       "[data-score]"
@@ -1937,12 +2025,13 @@ function checkExercise(index){
 
     score.textContent =
       `Điểm: ${correct}/${total}`;
+
   }
 
 
   updateTotalScore();
-}
 
+}
 
 /* ==========================================================
    12. TỔNG ĐIỂM
