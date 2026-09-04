@@ -95,28 +95,21 @@ header p{
   flex-shrink:0;
 }
 
-.audio-btn,
+.audio-player{
+  height:42px;
+  width:300px;
+  max-width:100%;
+}
+
 .speed-select{
   height:42px;
   border:1px solid #8fa2b5;
   background:white;
   border-radius:8px;
   font-size:15px;
-}
-
-.audio-btn{
-  padding:0 17px;
+  padding:0 10px;
   font-weight:700;
   cursor:pointer;
-  min-width:145px;
-}
-
-.audio-btn:hover{
-  background:#f1f6fb;
-}
-
-.audio-btn.playing{
-  background:#edf7ff;
 }
 
 .speed-select{
@@ -296,17 +289,20 @@ header p{
   }
 
   .controls{
-    width:100%;
-  }
+  width:100%;
+}
 
-  .audio-btn{
-    flex:1;
-    min-width:0;
-  }
+.audio-player{
+  flex:1;
+  width:auto;
+  min-width:0;
+}
 
-  .speed-select{
-    width:105px;
-  }
+.speed-select{
+  width:105px;
+  flex-shrink:0;
+}
+
 
   .exercise-body{
     padding:10px;
@@ -966,27 +962,28 @@ function renderExercises() {
         </div>
 
         <div class="controls">
-          <button
-            type="button"
-            class="audio-btn"
-            data-audio="${escapeHTML(exercise.id)}"
-            onclick="toggleAudio(${exIndex})">
-            ▶ Phần audio
-          </button>
 
-          <select
-            class="speed-select"
-            aria-label="Tốc độ audio"
-            onchange="changeSpeed(${exIndex}, this.value)">
-            <option value="0.8">0.8x</option>
-            <option value="0.9">0.9x</option>
-            <option value="1" selected>1x</option>
-            <option value="1.1">1.1x</option>
-            <option value="1.2">1.2x</option>
-            <option value="1.25">1.25x</option>
-          </select>
-        </div>
-      </div>
+  <audio
+    id="audio-${exIndex}"
+    class="audio-player"
+    preload="metadata"
+    controls
+    src="${AUDIO_FOLDER}${encodeURIComponent(exercise.id)}.mp3">
+  </audio>
+
+  <select
+    class="speed-select"
+    aria-label="Tốc độ audio"
+    onchange="changeSpeed(${exIndex}, this.value)">
+    <option value="0.8">0.8x</option>
+    <option value="0.9">0.9x</option>
+    <option value="1" selected>1x</option>
+    <option value="1.1">1.1x</option>
+    <option value="1.2">1.2x</option>
+    <option value="1.25">1.25x</option>
+    </select>
+    </div>
+    </div>
 
       <div class="exercise-body">
         <div class="listen-box">
@@ -1017,60 +1014,10 @@ function renderExercises() {
         </div>
       </div>
 
-      <audio
-        id="audio-${exIndex}"
-        preload="metadata"
-        src="${AUDIO_FOLDER}${encodeURIComponent(exercise.id)}.mp3">
-      </audio>
     </section>
   `).join("");
 }
 
-function toggleAudio(index) {
-  const exercise = EXERCISES[index];
-  const audio = document.getElementById(`audio-${index}`);
-  const button = document.querySelector(`[data-audio="${exercise.id}"]`);
-
-  if (currentAudio && currentAudio !== audio) {
-    currentAudio.pause();
-    currentAudio.currentTime = 0;
-
-    const oldIndex = [...document.querySelectorAll("audio")]
-      .findIndex(a => a === currentAudio);
-
-    if (oldIndex >= 0) {
-      const oldButton = document.querySelector(`[data-audio="${EXERCISES[oldIndex].id}"]`);
-      if (oldButton) {
-        oldButton.textContent = "▶ Phần audio";
-        oldButton.classList.remove("playing");
-      }
-    }
-  }
-
-  if (audio.paused) {
-    audio.play()
-      .then(() => {
-        currentAudio = audio;
-        button.textContent = "❚❚ Đang phát";
-        button.classList.add("playing");
-      })
-      .catch(() => {
-        alert(
-          `Không thể phát file audio:\n${AUDIO_FOLDER}${exercise.id}.mp3\n\n` +
-          `Hãy kiểm tra tên file và thư mục audio trên GitHub.`
-        );
-      });
-  } else {
-    audio.pause();
-    button.textContent = "▶ Phần audio";
-    button.classList.remove("playing");
-  }
-
-  audio.onended = () => {
-    button.textContent = "▶ Phần audio";
-    button.classList.remove("playing");
-  };
-}
 
 function changeSpeed(index, value) {
   const audio = document.getElementById(`audio-${index}`);
